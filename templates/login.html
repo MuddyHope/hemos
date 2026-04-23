@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>HEMOS Login</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <div class="wrap">
+    <div id="loginView" class="login-shell">
+      <section class="card hero-panel">
+       <div class="pill"><span class="pulse-dot"></span> Real-time health intelligence</div>
+<h1 class="hero-title">HEMOS turns live patient data into a clear, modern monitoring experience.</h1>
+<p>Log in to track live vitals, monitor recovery trends, and review ESP32-powered health readings through a streamlined local dashboard built on FastAPI and SQLite.</p>
+<div class="hero-grid">
+  <div class="mini"><strong>Live vitals</strong><span>Instant heart rate and temperature updates as readings arrive.</span></div>
+  <div class="mini"><strong>Recovery insights</strong><span>Quick trend-based signals for monitoring patient status over time.</span></div>
+  <div class="mini"><strong>Smooth access</strong><span>A cleaner login flow with inline feedback and faster interaction.</span></div>
+  <div class="mini"><strong>Built local</strong><span>Designed for an ESP32, FastAPI, and SQLite monitoring stack.</span></div>
+</div>
+      </section>
+
+      <section class="card login-card">
+        <div class="form-head">
+          <div>
+            <div class="badge">Secure access</div>
+            <h2>Sign in</h2>
+            <p>Use the demo account for now, then replace it with real users later.</p>
+          </div>
+          <div class="pill">demo / demo123</div>
+        </div>
+
+        <div class="field">
+          <label for="username">Username</label>
+          <div class="input-wrap"><input id="username" autocomplete="username" value="demo" /></div>
+        </div>
+
+        <div class="field">
+          <label for="password">Password</label>
+          <div class="input-wrap">
+            <input id="password" type="password" autocomplete="current-password" value="demo123" />
+            <button class="toggle-btn" id="togglePassword" type="button">Show</button>
+          </div>
+          <div class="strength" aria-hidden="true"><div class="strength-bar" id="strengthBar"></div></div>
+          <div class="helper-row">
+            <label class="check"><input type="checkbox" id="rememberBox"> Keep me signed in on this tab</label>
+            <span id="capsHint"></span>
+          </div>
+        </div>
+
+        <div class="actions">
+          <button id="loginBtn" class="primary">Sign in to dashboard</button>
+          <div class="ghost-info" id="statusHint">Tip: the button becomes more confident-looking as the form becomes valid.</div>
+          <p class="err" id="loginError" role="alert" aria-live="polite"></p>
+        </div>
+      </section>
+    </div>
+  </div>
+  <script src="/static/app.js"></script>
+</body>
+</html>

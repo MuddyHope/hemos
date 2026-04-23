@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>HEMOS Dashboard</title>
+  <link rel="stylesheet" href="/static/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
+  <script src="/static/app.js" defer></script>
+</head>
+<body>
+  <div class="wrap">
+    <div id="dashboardView">
+      <div class="card">
+        <h1>HEMOS Health Dashboard</h1>
+        <p>Welcome, <span id="fullName">Demo Patient</span>. This dashboard shows latest vitals, recent history, and a simple recovery estimate based on recent readings.</p>
+      </div>
+
+      <div class="grid top">
+        <div class="card"><h3>Latest Heart Rate</h3><div class="kpi" id="latestHr">--</div><p>BPM</p></div>
+        <div class="card"><h3>Latest Temperature</h3><div class="kpi" id="latestTemp">--</div><p>Celsius</p></div>
+        <div class="card"><h3>Recovery Score</h3><div class="kpi" id="recoveryScore">--</div><p>0 to 100</p></div>
+        <div class="card"><h3>Status</h3><div class="kpi status" id="recoveryState">--</div><p>Trend-based project estimate</p></div>
+      </div>
+
+    <div class="grid two">
+  <div class="card">
+    <h2>Latest Reading</h2>
+    <p><strong>Device:</strong> <span id="deviceId">--</span></p>
+    <p><strong>Timestamp:</strong> <span id="latestTime">--</span></p>
+    <p><strong>Heart Rate:</strong> <span id="latestHrText">--</span></p>
+    <p><strong>Temperature:</strong> <span id="latestTempText">--</span></p>
+  </div>
+
+  <div class="card">
+    <h2>Recovery Notes</h2>
+    <p id="recoverySummary">No readings yet.</p>
+    <button id="refreshBtn" class="primary" type="button">Refresh data</button>
+  </div>
+</div>
+
+<div class="card" style="margin-top:16px;">
+  <h2>Vitals Trend</h2>
+  <p>Recent heart rate and temperature readings from the device.</p>
+  <canvas id="vitalsChart" height="120"></canvas>
+</div>
+    </div>
+  </div>
+</body>
+</html>

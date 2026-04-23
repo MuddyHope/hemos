@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>HEMOS Register</title>
+  <link rel="stylesheet" href="/static/style.css">
+  <link rel="stylesheet" href="/static/register.css">
+  <script src="/static/register.js" defer></script>
+</head>
+<body class="auth-page">
+  <main class="auth-shell">
+    <section class="auth-hero card">
+      <div class="eyebrow">Patient intake</div>
+      <h1>Create a patient profile</h1>
+      <p>
+        Register a new account with health details, unit preferences, and baseline body metrics.
+      </p>
+
+      <div class="auth-points">
+        <div>
+          <strong>Accessible</strong>
+          <span>Clear labels, keyboard‑friendly controls, strong contrast.</span>
+        </div>
+        <div>
+          <strong>Flexible units</strong>
+          <span>Enter height and weight in metric or US units.</span>
+        </div>
+        <div>
+          <strong>Normalized storage</strong>
+          <span>Values are converted before saving.</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="card auth-card">
+      <div class="form-head">
+        <div>
+          <h2>Register</h2>
+          <p>Fill in the details below to create a new patient account.</p>
+        </div>
+        <div class="pill">HEMOS</div>
+      </div>
+
+      <form id="registerForm" novalidate>
+        <div class="form-grid">
+          <div class="field span-2">
+            <label for="full_name">Full name</label>
+            <input id="full_name" name="full_name" type="text" placeholder="Demo Patient" autocomplete="name" required>
+          </div>
+
+          <div class="field">
+            <label for="username">Username</label>
+            <input id="username" name="username" type="text" placeholder="demo" autocomplete="username" required>
+          </div>
+
+          <div class="field">
+            <label for="password">Password</label>
+            <input id="password" name="password" type="password" placeholder="Create a password" autocomplete="new-password" required>
+          </div>
+
+          <div class="field">
+            <label for="age">Age</label>
+            <input id="age" name="age" type="number" min="0" max="120" placeholder="25">
+          </div>
+
+          <fieldset class="field">
+            <legend>Sex</legend>
+            <div class="radio-group">
+              <label><input type="radio" name="sex" value="female" required> Female</label>
+              <label><input type="radio" name="sex" value="male"> Male</label>
+              <label><input type="radio" name="sex" value="intersex"> Intersex</label>
+              <label><input type="radio" name="sex" value="other"> Other</label>
+              <label><input type="radio" name="sex" value="prefer_not_to_say"> Prefer not to say</label>
+            </div>
+          </fieldset>
+
+          <fieldset class="field">
+            <legend>Smoking status</legend>
+            <div class="radio-group">
+              <label><input type="radio" name="smoking_status" value="never" required> Never</label>
+              <label><input type="radio" name="smoking_status" value="former"> Former</label>
+              <label><input type="radio" name="smoking_status" value="current"> Current</label>
+            </div>
+          </fieldset>
+
+          <div class="field">
+            <label for="preferred_unit">Preferred units</label>
+            <div class="segmented">
+              <label>
+                <input type="radio" name="preferred_unit" value="metric" checked>
+                <span>Metric</span>
+              </label>
+              <label>
+                <input type="radio" name="preferred_unit" value="us">
+                <span>US</span>
+              </label>
+            </div>
+          </div>
+
+          <div id="metricFields" class="span-2 metric-section">
+            <h3>Metric measurements</h3>
+            <div class="form-grid inner-grid">
+              <div class="field">
+                <label for="height_cm">Height (cm)</label>
+                <input id="height_cm" name="height_cm" type="number" step="0.1" placeholder="175">
+              </div>
+              <div class="field">
+                <label for="weight_kg">Weight (kg)</label>
+                <input id="weight_kg" name="weight_kg" type="number" step="0.1" placeholder="70">
+              </div>
+            </div>
+          </div>
+
+          <div id="usFields" class="span-2 metric-section" hidden>
+            <h3>US measurements</h3>
+            <div class="form-grid inner-grid">
+              <div class="field">
+                <label for="height_ft">Height (ft)</label>
+                <input id="height_ft" name="height_ft" type="number" min="0" placeholder="5">
+              </div>
+              <div class="field">
+                <label for="height_in">Height (in)</label>
+                <input id="height_in" name="height_in" type="number" min="0" max="11" placeholder="10">
+              </div>
+              <div class="field span-2">
+                <label for="weight_lb">Weight (lb)</label>
+                <input id="weight_lb" name="weight_lb" type="number" step="0.1" placeholder="154">
+              </div>
+            </div>
+          </div>
+
+          <div class="field span-2">
+            <label for="notes">Notes</label>
+            <textarea id="notes" name="notes" rows="3" placeholder="Optional allergies, conditions, or intake notes"></textarea>
+          </div>
+        </div>
+
+       <div class="form-actions">
+    <button id="registerBtn" class="primary" type="submit">Create account</button>
+    <a class="secondary-link" href="/login">Already have an account?</a>
+  </div>
+        <p id="registerMsg" class="ghost-info" aria-live="polite"></p>
+      </form>
+    </section>
+  </main>
+</body>
+</html>
