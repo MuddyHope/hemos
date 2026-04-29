@@ -59,8 +59,6 @@ CREATE TABLE IF NOT EXISTS patients (
 ensure_column(init_conn, "patients", "height_ft", "INTEGER")
 ensure_column(init_conn, "patients", "height_in", "INTEGER")
 ensure_column(init_conn, "patients", "weight_lb", "REAL")
-ensure_column(init_conn, "patients", "height_comment", "TEXT")
-ensure_column(init_conn, "patients", "weight_comment", "TEXT")
 
 init_cur.execute(
     "INSERT OR IGNORE INTO users (username, password, full_name) VALUES (?, ?, ?)",

@@ -7,6 +7,7 @@ from fastapi.responses import HTMLResponse
 from pydantic import BaseModel, ConfigDict
 from datetime import datetime
 from database import get_db
+import pickle
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 STATIC_DIR = BASE_DIR / "static"
@@ -16,6 +17,23 @@ app = FastAPI()
 
 app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
 templates = Jinja2Templates(directory=TEMPLATES_DIR)
+
+
+# Machine Learning Model Inference
+
+from inference import CardiacMonitor  # your file
+
+# Load trained artifacts
+with open('cardiac_model.pkl', 'rb') as f:
+    bundle = pickle.load(f)
+
+model    = bundle['model']
+encoder  = bundle['encoder']
+features = bundle['features']
+
+
+# Single global monitor instance
+monitor = CardiacMonitor(model, encoder, features)
 
 
 class VitalReading(BaseModel):
@@ -31,7 +49,7 @@ class LoginRequest(BaseModel):
 
 
 class RegisterRequest(BaseModel):
-    model_config = ConfigDict(extra="forbid")
+    model_config = ConfigDict()
     username: str
     password: str
     full_name: str | None = None
@@ -44,8 +62,6 @@ class RegisterRequest(BaseModel):
     height_ft: int | None = None
     height_in: int | None = None
     weight_lb: float | None = None
-    height_comment: str | None = None
-    weight_comment: str | None = None
 
 
 @app.get("/", response_class=HTMLResponse)
@@ -159,8 +175,8 @@ def register(payload: RegisterRequest):
             INSERT INTO patients (
                 username, password, full_name, sex, smoking_status, preferred_unit,
                 age, height_cm, weight_kg, height_ft, height_in, weight_lb,
-                height_comment, weight_comment, created_at
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                created_at
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             """,
             (
                 payload.username,
@@ -175,8 +191,6 @@ def register(payload: RegisterRequest):
                 height_ft,
                 height_in,
                 weight_lb,
-                payload.height_comment,
-                payload.weight_comment,
                 datetime.utcnow().isoformat()
             )
         )
@@ -305,4 +319,53 @@ def recovery():
         "avg_temperature": avg_temp,
         "recovery_score": score,
         "state": state,
+    }
+
+# Analysis Page
+@app.get("/analysis", response_class=HTMLResponse)
+def analysis_page(request: Request):
+    return templates.TemplateResponse(
+        request=request,
+        name="analysis.html",
+        context = {}
+    )
+
+# Machine Learning Model
+@app.get("/api/analysis")
+def analyze_latest():
+
+    conn = get_db()
+
+    rows = conn.execute(
+        """
+        SELECT heart_rate, body_temperature
+        FROM readings
+        WHERE heart_rate IS NOT NULL OR body_temperature IS NOT NULL
+        ORDER BY id ASC
+        LIMIT 100
+        """
+    ).fetchall()
+
+    conn.close()
+
+    if not rows:
+        return {"status": "no data"}
+
+    # 🔥 Reset buffers before rebuilding
+    monitor.hr_buffer.clear()
+    monitor.temp_buffer.clear()
+
+    result = None
+
+    # 🔥 Feed historical data sequentially
+    for r in rows:
+        hr = r["heart_rate"]
+        temp = r["body_temperature"]
+
+        result = monitor.predict(hr, temp)
+
+    return {
+        "status": "ok",
+        "analysis": result,
+        "samples_used": len(rows)
     }

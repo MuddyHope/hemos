@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>HEMOS AI Analysis</title>
+
+  <link rel="stylesheet" href="/static/style.css">
+  <script src="/static/app.js" defer></script>
+</head>
+
+<body>
+
+<div class="wrap">
+
+  <!-- HEADER -->
+  <div class="card">
+    <h1>AI Health Analysis</h1>
+    <p>
+      Detailed breakdown of machine learning predictions, physiological signals,
+      and model explainability from your cardiac monitoring system.
+    </p>
+  </div>
+
+  <!-- MAIN PREDICTION CARD -->
+  <div class="grid top">
+
+    <div class="card">
+      <h3>Prediction</h3>
+      <div class="kpi status" id="analysisResult">--</div>
+      <p>Model output classification</p>
+    </div>
+
+    <div class="card">
+      <h3>Confidence</h3>
+      <div class="kpi" id="analysisConfidence">--</div>
+      <p>Prediction certainty</p>
+    </div>
+
+    <div class="card">
+      <h3>Status Reason</h3>
+      <div class="status" id="analysisReason">--</div>
+      <p>Why the model predicted this</p>
+    </div>
+
+    <div class="card">
+      <h3>Samples Used</h3>
+      <div class="kpi" id="analysisSamples">--</div>
+      <p>Backend dataset size</p>
+    </div>
+
+  </div>
+
+  <!-- FEATURE ENGINEERING -->
+  <div class="card">
+    <h2>Feature Engineering Breakdown</h2>
+
+    <table>
+      <tr><th>Feature</th><th>Value</th></tr>
+      <tr><td>HRV</td><td id="f_hrv">--</td></tr>
+      <tr><td>HR Trend</td><td id="f_hrtrend">--</td></tr>
+      <tr><td>Temp Trend</td><td id="f_temptrend">--</td></tr>
+      <tr><td>HR Rolling Mean</td><td id="f_hrmean">--</td></tr>
+      <tr><td>BPM–Temp Correlation</td><td id="f_corr">--</td></tr>
+    </table>
+  </div>
+
+  <!-- RAW JSON OUTPUT -->
+  <div class="card">
+    <h2>Raw Backend Output</h2>
+    <pre id="analysisRaw" style="white-space:pre-wrap; color:#334155;">--</pre>
+  </div>
+
+  <!-- BACK BUTTON -->
+  <div class="card">
+    <a href="/dashboard" class="primary" style="text-decoration:none; display:inline-block;">
+      ← Back to Dashboard
+    </a>
+  </div>
+
+</div>
+
+</body>
+</html>

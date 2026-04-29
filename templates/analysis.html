@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>HEMOS AI Analysis</title>
+  <link rel="stylesheet" href="/static/style.css">
+  <script src="/static/analysis.js" defer></script>
+</head>
+
+<body>
+  <div class="wrap">
+
+    <div class="card">
+      <h1>AI Health Analysis</h1>
+      <p>Full breakdown of ML prediction and feature signals.</p>
+    </div>
+
+    <!-- MAIN PREDICTION -->
+    <div class="card">
+      <h2>Prediction</h2>
+      <div class="kpi status" id="analysisResult">--</div>
+      <p id="analysisReason">Loading...</p>
+    </div>
+
+    <!-- FEATURES -->
+    <div class="card">
+  <h2>Feature Breakdown</h2>
+
+  <p>HRV: <span id="f_hrv">--</span></p>
+  <p>HR Trend: <span id="f_hrtrend">--</span></p>
+  <p>Temp Trend: <span id="f_temptrend">--</span></p>
+  <p>HR Mean: <span id="f_hrmean">--</span></p>
+  <p>HR–Temp Correlation: <span id="f_corr">--</span></p>
+</div>
+
+    <!-- RAW JSON -->
+    <div class="card">
+      <h2>Raw Model Output</h2>
+      <pre id="analysisRaw">--</pre>
+    </div>
+
+    <div class="card">
+      <a href="/dashboard" class="primary">← Back to Dashboard</a>
+    </div>
+
+  </div>
+</body>
+</html>
